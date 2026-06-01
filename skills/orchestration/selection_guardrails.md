@@ -1,0 +1,3 @@
+- Reject illegal proposals before qualitative comparison.
+- Treat waiting-external and ready-to-finalize as explicit runtime modes, not ordinary proposal selection.
+- Prefer human escalation over unsafe blind retries when guardrails are exhausted.

@@ -1,0 +1,72 @@
+[
+  {
+    "source_id": "relax-defaults",
+    "corpus": "house_policy",
+    "title": "Relax stage default policy",
+    "heading": "relax",
+    "stage": "relax",
+    "url_or_path": "repo://mobility_agent/tools/vasp_common.py",
+    "tags": ["relax", "INCAR", "EDIFF", "ISIF", "NSW", "POTIM"],
+    "text": "Default relax policy uses a conservative geometry optimization setup for 2D materials. The base template keeps ISMEAR=0, SIGMA=0.01, LREAL=Auto, PREC=Normal, ENCUT around 600, NELM around 300, IBRION=2, POTIM=0.5, EDIFFG around -0.01, and lattice constraints that keep the vacuum direction fixed. This house policy favors robustness over speed."
+  },
+  {
+    "source_id": "scf-defaults",
+    "corpus": "house_policy",
+    "title": "SCF stage default policy",
+    "heading": "scf",
+    "stage": "scf",
+    "url_or_path": "repo://mobility_agent/tools/vasp_common.py",
+    "tags": ["scf", "INCAR", "ENCUT", "EDIFF", "LVTOT", "LVHAR"],
+    "text": "Default SCF policy uses a robust non-spin baseline with ISMEAR=0, SIGMA=0.01, LREAL=Auto, PREC=Normal, ENCUT around 600, EDIFF around 1e-6, NELM around 300, and writes charge density for downstream stages. When electrostatic post-processing is needed, LVTOT and LVHAR can be enabled."
+  },
+  {
+    "source_id": "band-defaults",
+    "corpus": "house_policy",
+    "title": "Band stage default policy",
+    "heading": "band",
+    "stage": "band",
+    "url_or_path": "repo://mobility_agent/tools/vasp_common.py",
+    "tags": ["band", "KPOINTS", "ICHARG", "line-mode"],
+    "text": "Default band policy reuses the SCF charge density, sets ICHARG=11, keeps conservative diagonalization settings, and writes a line-mode KPOINTS path with about 40 points per segment. This favors stable band-edge extraction over aggressive speed tuning."
+  },
+  {
+    "source_id": "kmesh-policy-2d",
+    "corpus": "house_policy",
+    "title": "2D k-mesh generation policy",
+    "heading": "kpoints",
+    "stage": "scf",
+    "url_or_path": "repo://mobility_agent/tools/vasp_common.py",
+    "tags": ["KPOINTS", "target_ka", "2D"],
+    "text": "The house k-point policy derives a 2D Monkhorst-Pack mesh from the in-plane lattice constants using a target_ka density. The vacuum direction keeps one k-point. This is intended to scale mesh density with cell size without hard-coding one universal grid."
+  },
+  {
+    "source_id": "relax-recovery-prior",
+    "corpus": "house_policy",
+    "title": "Relax recovery prior",
+    "heading": "recovery",
+    "stage": "relax",
+    "url_or_path": "repo://mobility_agent/tools/relax_retry.py",
+    "tags": ["recovery", "relax", "retry"],
+    "text": "When relax fails, the current system favors bounded retry logic and structured recovery summaries before escalating to a human. If the error suggests convergence problems, parameter tightening is preferred over unrestricted changes. If outputs are missing after repeated retries, human escalation or skip is safer than continued blind repetition."
+  },
+  {
+    "source_id": "strain-campaign-prior",
+    "corpus": "house_policy",
+    "title": "Strain loop policy",
+    "heading": "strain_loop",
+    "stage": "strain_loop",
+    "url_or_path": "repo://mobility_agent/tools/strain_tool.py",
+    "tags": ["strain_loop", "relax", "scf", "band"],
+    "text": "The strain campaign runs a local relax-SCF-band trio at each strain point, keeping the current direction constrained while reusing a stable reference at zero strain. Point-level failures can be skipped, but the policy should prefer explanations and bounded retries before silently discarding scientifically important points."
+  },
+  {
+    "source_id": "agentic-override-guardrail",
+    "corpus": "house_policy",
+    "title": "Agentic override guardrail",
+    "heading": "guardrail",
+    "stage": "",
+    "url_or_path": "repo://mobility_agent/policy/engine.py",
+    "tags": ["agentic", "guardrail", "allowlist"],
+    "text": "Agentic planning is allowed to recommend only a restricted allowlist of INCAR, KPOINTS, and runtime-policy keys. The deterministic renderer stays in charge of file writing and execution. If evidence is weak or the model output is malformed, the system must fall back to the current deterministic defaults."
+  }
+]

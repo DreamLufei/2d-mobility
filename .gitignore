@@ -1,0 +1,52 @@
+.env
+.env.local
+.env.local*
+__pycache__/
+*.pyc
+.runtime/
+mobility_calculation/
+.mobility_runtime_store.sqlite
+.venv/
+.closure_venv/
+.conda/
+.web_runtime/
+.pgdata/
+.pytest_cache/
+*.egg-info/
+.coverage
+htmlcov/
+*.log
+sout
+.vscode/
+.DS_Store
+web_console/frontend/node_modules/
+web_console/frontend/dist/
+policy_corpora/
+
+# VASP and high-throughput run artifacts that should not be committed.
+# POTCAR is distributed only under a VASP license; WAVECAR/CHGCAR/vasprun.xml
+# and related files are large raw outputs better deposited in an archive if
+# needed for review.
+POTCAR
+POTCAR.*
+WAVECAR
+WAVECAR.*
+CHGCAR
+CHGCAR.*
+CHG
+CHG.*
+vasprun.xml
+vaspout.h5
+OUTCAR
+EIGENVAL
+DOSCAR
+PROCAR
+IBZKPT
+OSZICAR
+XDATCAR
+PCDAT
+REPORT
+*.tar
+*.tar.gz
+*.tgz
+*.zip

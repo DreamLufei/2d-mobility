@@ -1,0 +1,19 @@
+{
+  "input": {
+    "task_type": "single_material",
+    "required_files": ["POSCAR", "POTCAR"]
+  },
+  "output": {
+    "schema": "MaterialRunOutcome",
+    "artifacts": [
+      "mobility_results.json",
+      "fit_diagnostics.json",
+      "decision_trace.json",
+      "tool_trace.json",
+      "recovery_trace.json",
+      "validation_report.json",
+      "final_summary.json",
+      "material_outcome.json"
+    ]
+  }
+}

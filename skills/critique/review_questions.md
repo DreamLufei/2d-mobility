@@ -1,0 +1,3 @@
+- What evidence is missing for this proposal to be safe?
+- Does it violate any dependency, legality, or budget guardrail?
+- Is there a less risky proposal with comparable expected value?

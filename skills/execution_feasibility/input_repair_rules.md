@@ -1,0 +1,3 @@
+- Restore missing context only when the required input can be derived from known state or artifacts.
+- Do not invent stage outputs.
+- Prefer escalation over ambiguous repair.
